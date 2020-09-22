@@ -26,7 +26,7 @@ resource "azurerm_sql_server" "sql_svr" {
   administrator_login          = var.sql_user
   administrator_login_password = random_string.password.result
 
-  tags = merge(var.tags, map("SQLVersion", var.sql_version))
+  tags = merge(var.tags, map("SQLVersion", var.sql_version), map("ManagedBy", var.ad_sqladmin_user))
 }
 
 resource "azurerm_sql_database" "default_db" {

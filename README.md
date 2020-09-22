@@ -19,10 +19,10 @@ resource "azurerm_resource_group" "test_rg" {
 
 module "sqldb" {
   source  = "andrewCluey/sqldb/azurerm"
-  version = "0.0.1"
+  version = "0.1.0"
   # insert the 6 required variables here
 
-  sql_resourcegroup                = "RG-DEV-SQL"
+  sql_resourcegroup                = azurerm_resource_group.test_rg.name
   sql_server_name                  = "DEV-SQL01"
   sql_version                      = "12.0"
   sql_edition                      = "GeneralPurpose"
