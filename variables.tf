@@ -10,7 +10,7 @@ variable "sql_edition" {
     default     = "GeneralPurpose"
 }
 
-variable "requested_service_objective_name" {
+variable "service_objective_name" {
   description = "The perforance tier to deploy6. Depends on location and edition chosen. Run 'az sql db list-editions -l westus -o table' for available sizes "
   type        = string
   default     = "GP_S_Gen5_1"
