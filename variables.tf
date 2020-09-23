@@ -93,13 +93,13 @@ variable "pe_vnet_resource_group_name" {
 }
 
 
-variable "private_blob_dns_zone_name" {
+variable "private_dns_zone_name" {
   description = "The name of the Azure DNS zone where the Private Endpoint FQDN will be registered."
   type        = string
   default     = null
 }
 
-variable "private_blob_dns_zone_id" {
+variable "private_dns_zone_id" {
   description = "The ID of the Azure DNS zone where the Private Endpoint FQDN will be registered."
   type        = string
   default     = null
