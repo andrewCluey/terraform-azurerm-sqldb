@@ -21,7 +21,7 @@ resource "azurerm_sql_active_directory_administrator" "sql_admin" {
 resource "azurerm_sql_server" "sql_svr" {
   name                         = var.sql_server_name
   resource_group_name          = data.azurerm_resource_group.sql_rg.name
-  location                     = data.azurerm_resource_group.sql_rg.location
+  location                     = var.location
   version                      = var.sql_version
   administrator_login          = var.sql_user
   administrator_login_password = random_string.password.result
@@ -32,7 +32,7 @@ resource "azurerm_sql_server" "sql_svr" {
 resource "azurerm_sql_database" "default_db" {
   name                             = var.default_db_name
   resource_group_name              = data.azurerm_resource_group.sql_rg.name
-  location                         = data.azurerm_resource_group.sql_rg.location
+  location                         = var.location
   edition                          = var.sql_edition
   requested_service_objective_name = var.service_objective_name
   server_name                      = azurerm_sql_server.sql_svr.name

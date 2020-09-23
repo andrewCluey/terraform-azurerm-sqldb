@@ -4,6 +4,13 @@ variable "tags" {
     default     = {}
 }
 
+variable "location" {
+  description = "The Azure Region where the resources should be deployed."
+  type        = string
+  default     = "West Europe"
+}
+
+
 variable "sql_edition" { 
     description = "The Azure SQL edition to deploy. To view available editions; Run 'az sql db list-editions -l westus -o table' for available editions."
     type        = string
