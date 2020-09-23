@@ -40,3 +40,37 @@ resource "azurerm_sql_database" "default_db" {
 
   tags = merge(var.tags, map("SQLVersion", var.sql_version), map("Edition", var.sql_edition), map("SQLServiceTier", var.service_objective_name))
 }
+
+
+# If 'var.create_private_endpoint = true, then create private endpoint and assign to the SQL Server.
+data "azurerm_subnet" "pe_subnet" {
+  count               = var.create_private_endpoint ? 1 : 0
+  name                 = var.pe_subnet_name
+  virtual_network_name = var.pe_vnet_name
+  resource_group_name  = var.pe_vnet_resource_group_name
+}
+
+resource "azurerm_private_endpoint" "pe" {
+  count               = var.create_private_endpoint ? 1 : 0
+  name                = "${var.sql_server_name}-pe"
+  resource_group_name = data.azurerm_resource_group.sql_rg.name
+  location            = data.azurerm_resource_group.sql_rg.location
+  subnet_id           = data.azurerm_subnet.pe_subnet.id
+  subresource_names   = "sqlServer"
+
+  private_service_connection {
+    name                           = "${var.sql_server_name}-connection"
+    is_manual_connection           = false
+    private_connection_resource_id = azurerm_sql_server.sql_svr.id
+  }
+
+  private_dns_zone_group {
+    name                 = var.private_blob_dns_zone_name
+    private_dns_zone_ids = [var.private_blob_dns_zone_id]
+  }
+}
+
+
+
+
+

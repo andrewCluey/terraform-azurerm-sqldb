@@ -62,3 +62,45 @@ variable "create_mode" {
   type        = string
   default     = "Default"
 }
+
+
+# Only modify if a private Endpouitn is reguired.
+
+variable "create_private_endpoint" {
+  description = "Should a private Endpoint be created and assigned to the new SQL Server?"
+  type        = bool
+  default     = false
+}
+
+# The following Input bvariables must be set if 'Create_Private_Endpoint' is set to 'TRUE'
+variable "pe_subnet_name" {
+  description = "The name of the Subnet where the new private Endpoint should be created."
+  type = string
+  default     = null
+}
+
+
+variable "pe_vnet_name" {
+  description = "The name of the vNET where the Subnet for the new private Endpoint is located."
+  type = string
+  default     = null
+}
+
+variable "pe_vnet_resource_group_name" {
+  description = "The name of the Resource Group where the vNEt is located."
+  type = string
+  default     = null
+}
+
+
+variable "private_blob_dns_zone_name" {
+  description = "The name of the Azure DNS zone where the Private Endpoint FQDN will be registered."
+  type        = string
+  default     = null
+}
+
+variable "private_blob_dns_zone_id" {
+  description = "The ID of the Azure DNS zone where the Private Endpoint FQDN will be registered."
+  type        = string
+  default     = null
+}
